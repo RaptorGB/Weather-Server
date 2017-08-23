@@ -1,10 +1,8 @@
-var assert = require('assert');
-
-//Karma set up test function
-describe('Array', function() {
-  describe('#indexOf()', function() {
-    it('should return -1 when the value is not present', function() {
-      assert.equal(-1, [1,2,3].indexOf(4));
-    });
-  });
-});
+import sinon from 'sinon';
+import chai from 'chai';
+const expect = chai.expect;
+import dirtyChai from 'dirty-chai';
+import sinonChai from 'sinon-chai';
+chai.use(dirtyChai).use(sinonChai);
+global.sinon = sinon;
+global.expect = expect;

@@ -13,8 +13,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'test-main.js',
-      {pattern: 'test/', included: false}
+      {pattern: 'test/**/*.js', included: false}
     ],
 
     // list of files to exclude
@@ -49,7 +48,12 @@ module.exports = function(config) {
     browsers: ['Chrome'],
 
     plugins: [
-      'karma-chrome-launcher'
+      'karma-chrome-launcher',
+      'karma-mocha',
+      'karma-sinon',
+      'karma-sinon-chai',
+      'karma-dirty-chai',
+      'karma-requirejs'
     ],
 
     // Continuous Integration mode
@@ -58,6 +62,12 @@ module.exports = function(config) {
 
     // Concurrency level
     // how many browser should be started simultaneous
-    concurrency: Infinity
+    concurrency: Infinity,
+
+    client: {
+      mocha: {
+        opts: true
+      }
+    }
   })
 }

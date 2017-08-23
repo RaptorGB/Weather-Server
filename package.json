@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon ./index.js localhost 3000 --exec babel-node --presets=es2015",
-    "test": "mocha"
+    "test": "karma start karma.conf.js"
   },
   "repository": {
     "type": "git",
