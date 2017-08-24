@@ -9,11 +9,12 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['mocha', 'requirejs'],
+    frameworks: ['mocha', 'requirejs', 'chai'],
 
     // list of files / patterns to load in the browser
     files: [
-      {pattern: 'test/**/*.js', included: false}
+      {pattern: 'spec/**/*.js', included: false},
+      {pattern: 'src/**/*.js', included: false},
     ],
 
     // list of files to exclude
@@ -23,6 +24,16 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+      'src/**/*.js': ['babel'],
+      'spec/**/*.js': ['babel']
+    },
+
+
+    babelPreprocessor: {
+      options: {
+        presets: ['es2015'],
+        sourceMap: 'inline'
+      }
     },
 
     // test results reporter to use
@@ -38,7 +49,7 @@ module.exports = function(config) {
 
     // level of logging
     // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-    logLevel: config.LOG_INFO,
+    logLevel: config.LOG_DEBUG,
 
     // enable / disable watching file and executing tests whenever any file changes
     autoWatch: true,
@@ -48,12 +59,14 @@ module.exports = function(config) {
     browsers: ['Chrome'],
 
     plugins: [
-      'karma-chrome-launcher',
       'karma-mocha',
       'karma-sinon',
+      'karma-chai',
       'karma-sinon-chai',
       'karma-dirty-chai',
-      'karma-requirejs'
+      'karma-requirejs',
+      'karma-babel-preprocessor',
+      'karma-chrome-launcher'
     ],
 
     // Continuous Integration mode
