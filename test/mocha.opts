@@ -1,3 +1,2 @@
 --colors
---reporter progress
 --require test/test.js
