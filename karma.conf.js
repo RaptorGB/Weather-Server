@@ -49,7 +49,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome'],
+    browsers: ['Chrome', 'Firefox'],
 
     plugins: [
       'karma-mocha',
@@ -59,6 +59,7 @@ module.exports = function(config) {
       'karma-dirty-chai',
       'karma-babel-preprocessor',
       'karma-chrome-launcher',
+      'karma-firefox-launcher',
       'karma-coverage',
       'karma-verbose-reporter'
     ],
@@ -69,6 +70,6 @@ module.exports = function(config) {
 
     // Concurrency level
     // how many browser should be started simultaneous
-    concurrency: Infinity,
+    concurrency: 2
   })
 }
