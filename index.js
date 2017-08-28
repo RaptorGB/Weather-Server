@@ -1,9 +1,27 @@
-import express from "express";
-const app = express();
+import * as restify from "restify";
 
+export class Index {
 
-app.get("/", (req, res) => {
+  constructor() {
 
-});
+    this.server = restify.createServer();
+    this.server.use(restify.plugins.queryParser());
+    this.getRoutes();
 
-app.listen(3000);
+  }
+
+  getRoutes() {
+
+    this.server.get("/login/:type", (req, res, next) => { //idea being type is going to be either facebook or google
+
+      console.log("req>", req.query); //Want to pass the query to the necessary controller.
+
+    });
+
+    this.server.listen(3000);
+
+  }
+
+};
+
+new Index();

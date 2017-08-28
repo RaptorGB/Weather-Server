@@ -18,7 +18,10 @@
   },
   "homepage": "https://github.com/SimonKaya91/Weather-Server#readme",
   "dependencies": {
-    "express": "^4.15.4"
+    "passport": "^0.4.0",
+    "passport-facebook": "^2.1.1",
+    "passport-google-oauth": "^1.0.0",
+    "restify": "^5.2.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
