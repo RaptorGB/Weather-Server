@@ -1,0 +1,80 @@
+[
+  {
+    "location": {
+      "name": "London, England",
+      "lat": "37.777",
+      "long": "-122.42",
+      "timezone": "-7",
+      "alert": "",
+      "degreetype": "C",
+      "imagerelativeurl": "http://blob.weather.microsoft.com/static/weather4/en-us/"
+    },
+    "current": {
+      "temperature": "27",
+      "skycode": "32",
+      "skytext": "Sunny",
+      "date": "2017-03-14",
+      "observationtime": "13:15:00",
+      "observationpoint": "London, England",
+      "feelslike": "30",
+      "humidity": "59",
+      "winddisplay": "3 mph West",
+      "day": "Tuesday",
+      "shortday": "Tue",
+      "windspeed": "3 mph",
+      "imageUrl": "http://blob.weather.microsoft.com/static/weather4/en-us/law/32.gif"
+    },
+    "forecast": [
+      {
+        "low": "20",
+        "high": "24",
+        "skycodeday": "31",
+        "skytextday": "Clear",
+        "date": "2017-03-13",
+        "day": "Monday",
+        "shortday": "Mon",
+        "precip": ""
+      },
+      {
+        "low": "23",
+        "high": "29",
+        "skycodeday": "34",
+        "skytextday": "Mostly Sunny",
+        "date": "2017-03-14",
+        "day": "Tuesday",
+        "shortday": "Tue",
+        "precip": "10"
+      },
+      {
+        "low": "18",
+        "high": "20",
+        "skycodeday": "26",
+        "skytextday": "Cloudy",
+        "date": "2017-03-15",
+        "day": "Wednesday",
+        "shortday": "Wed",
+        "precip": "20"
+      },
+      {
+        "low": "6",
+        "high": "10",
+        "skycodeday": "28",
+        "skytextday": "Mostly Cloudy",
+        "date": "2017-03-16",
+        "day": "Thursday",
+        "shortday": "Thu",
+        "precip": "10"
+      },
+      {
+        "low": "-3",
+        "high": "-1",
+        "skycodeday": "32",
+        "skytextday": "Sunny",
+        "date": "2017-03-17",
+        "day": "Friday",
+        "shortday": "Fri",
+        "precip": "10"
+      }
+    ]
+  }
+]

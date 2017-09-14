@@ -8,8 +8,9 @@ export class Forecast {
 
     weather.find({search: location, degreeType: degreeType}, function(err, result) {
       if(err) console.log(err);
+      var json = JSON.stringify(result, null, 2);
 
-      console.log(JSON.stringify(result, null, 2));
+      return json;
     });
 
   }
