@@ -34,7 +34,7 @@ describe("Forecast", () => {
 
     });
 
-    describe("With valid params", () => {
+    describe("With valid params", () => { //Where are you running the function here? e.g. calling get weather?
       let callback;
       let json;
       let location = "London, England";
@@ -43,11 +43,10 @@ describe("Forecast", () => {
 
       beforeEach(() => {
         forecast = new Forecast();
-        json = require('../static-resource/weather.json');
+        json = require('../static-resource/weather.json'); //Maybe rename this to static weather resource
 
-        callback = sinon.stub(forecast, "getWeather");
-        callback.withArgs(location, degreeType).returns(json);
-        callback.withArgs(errArg).throws(errArg);
+        callback = sinon.stub(forecast, "getWeather"); //This is not what you want to stub
+        callback.withArgs(location, degreeType).returns(json); // Look at yields when testing the callback, you want to stub weather.find
       });
 
       afterEach(() => {
@@ -55,14 +54,15 @@ describe("Forecast", () => {
         callback.restore();
       });
 
-      it("Returns weather info for location specified in celcius", () => {
+      it("Returns weather info for location specified in celcius", () => { //This is not testing the get weather function
         let result = callback(location, degreeType);
         expect(result[0].location.name).to.equal(location);
         expect(result[0].location.degreetype).to.equal(degreeType);
       });
 
-      it("Callback throws error with wrong data", () => {
-        //expect(callback(errArg)).to.equal(errArg);
+      it("Callback throws error with wrong data", () => { //This isn't testing the get weather function or callback
+        expect(callback(errArg)).to.equal(errArg);
+        callback.withArgs(errArg).throws(errArg);
       });
 
     });
