@@ -2,17 +2,14 @@ import * as weather from "weather-js";
 
 export class Forecast {
 
-  getWeather(location, degreeType) {
+  getWeather(location, degreeType, callback) {
     //Ensure values exist
-    if(!degreeType || !location) return "Values undefined";
+    if(!degreeType || !location) return callback("Values undefined");
 
     weather.find({search: location, degreeType: degreeType}, function(err, result) {
-      if(err) return err;
-      var json = JSON.stringify(result, null, 2);
-
-      return json;
+      if(err) return callback(err);
+      return callback(null, result);
     });
-
   }
 
 }
