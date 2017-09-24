@@ -1,16 +1,16 @@
 import {Forecast} from "../../src/forecasts/forecast.js";
 import * as weather from "weather-js";
-import {staticWeather} from "../static-resource/weather.json"; //Mock data
+import * as staticWeather from "../static-resource/weather.json";
 
 describe("Forecast", () => {
-  let forecast;
 
   describe("getWeather", () => {
-    let expectedErrMsg;
+    let forecast,
+      expectedErrorMessage;
 
     beforeEach(() => {
       forecast = new Forecast();
-      expectedErrMsg = "Values undefined";
+      expectedErrorMessage = "Values undefined";
     });
 
     afterEach(() => {
@@ -18,27 +18,31 @@ describe("Forecast", () => {
     });
 
     describe("with falsy params", () => {
-      it("Return early when either params undefined", () => {
+      it("Return early when either params undefined", (done) => {
         forecast.getWeather(undefined, undefined, (err, result) => {
-          expect(err).to.equal(expectedErrMsg);
+          expect(err).to.equal(expectedErrorMessage);
+          done();
         });
       });
 
-      it("Return early when params are null", () => {
+      it("Return early when params are null", (done) => {
           forecast.getWeather(null, null, (err, result) => {
-            expect(err).to.equal(expectedErrMsg);
+            expect(err).to.equal(expectedErrorMessage);
+            done();
           });
       });
 
-      it("Return early when params are 0", () => {
+      it("Return early when params are 0", (done) => {
         forecast.getWeather(0, 0, (err, result) => {
-          expect(err).to.equal(expectedErrMsg);
+          expect(err).to.equal(expectedErrorMessage);
+          done();
         });
       });
 
-      it("Return early when params are NaN", () => {
+      it("Return early when params are NaN", (done) => {
         forecast.getWeather(NaN, NaN, (err, result) => {
-          expect(err).to.equal(expectedErrMsg);
+          expect(err).to.equal(expectedErrorMessage);
+          done();
         });
       });
 
@@ -48,33 +52,31 @@ describe("Forecast", () => {
       let stub;
 
       beforeEach(() => {
-        forecast = new Forecast();
-        stub = sinon.stub(weather, "find"); //Stub any callout to this method
-        expectedErrMsg = "CallbackError";
+        expectedErrorMessage = "CallbackError";
+        stub = sinon.stub(weather, "find");
+        console.log(stub);
       });
 
       afterEach(() => {
-        forecast = null;
-        stub.restore();
+      stub.restore();
       });
 
-      it("Tests getWeather returns json object", () => {
-        stub.yields(null, staticWeather); //Mock test data
+      it("Tests getWeather returns json object", (done) => {
+        stub.yields(null, staticWeather);
         forecast.getWeather("London, England", "C", (err, result) => {
           expect(result[0].name).to.equal(staticWeather[0].name);
           expect(result[0].degreetype).to.equal(staticWeather[0].degreetype);
+          done();
         });
       });
 
-      it("Tests getWeather callback throws an error", () => {
-        stub.yields(expectedErrMsg);
+      it("Tests getWeather callback throws an error", (done) => {
+        stub.yields("fuck");
         forecast.getWeather("London, England", "C", (err, result) => {
-          expect(err).to.equal(expectedErrMsg);
+          expect(err).to.equal(expectedErrorMessage);
+          done();
         });
       });
-
     });
-
   });
-
 });
