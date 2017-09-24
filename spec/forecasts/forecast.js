@@ -34,35 +34,42 @@ describe("Forecast", () => {
 
     });
 
-    describe("With valid params", () => { //Where are you running the function here? e.g. calling get weather?
-      let callback;
-      let json;
+    describe("Weather.find callback result", () => {
+      let stub;
+      let weather = require("Weather-JS");
       let location = "London, England";
       let degreeType = "C";
-      let errArg = 666;
 
       beforeEach(() => {
-        forecast = new Forecast();
-        json = require('../static-resource/weather.json'); //Maybe rename this to static weather resource
-
-        callback = sinon.stub(forecast, "getWeather"); //This is not what you want to stub
-        callback.withArgs(location, degreeType).returns(json); // Look at yields when testing the callback, you want to stub weather.find
+        // forecast = new Forecast();
+        // stub = sinon.stub(forecast, "getWeather");
+        stub = sinon.stub(weather, "find");
       });
 
       afterEach(() => {
-        forecast = null;
-        callback.restore();
+        // forecast = null;
+        stub.restore();
       });
 
-      it("Returns weather info for location specified in celcius", () => { //This is not testing the get weather function
-        let result = callback(location, degreeType);
+      it("Tests callback weather.find returns weather JSON object with correct location and degree type", () => {
+        let json = require('../static-resource/weather.json');
+        // stub.yields([json]);
+        stub.returns(json);
+
+        // let result = forecast.getWeather(location, degreeType);
+        let result = weather.find(location, degreeType, stub);
+
         expect(result[0].location.name).to.equal(location);
         expect(result[0].location.degreetype).to.equal(degreeType);
       });
 
-      it("Callback throws error with wrong data", () => { //This isn't testing the get weather function or callback
-        expect(callback(errArg)).to.equal(errArg);
-        callback.withArgs(errArg).throws(errArg);
+      it("Tests callback weather.find throws an error", () => {
+        let errMsg = "Error Thrown";
+        // stub.yields(null, [errMsg]);
+        stub.returns(errMsg);
+
+        let result = weather.find();
+        expect(result).to.equal(errMsg);
       });
 
     });
