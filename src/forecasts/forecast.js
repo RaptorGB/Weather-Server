@@ -10,5 +10,4 @@ export class Forecast {
       return callback(null, result);
     });
   }
-
 }

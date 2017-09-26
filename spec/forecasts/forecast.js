@@ -2,6 +2,9 @@ import {Forecast} from "../../src/forecasts/forecast.js";
 import * as weather from "weather-js";
 import * as staticWeather from "../static-resource/weather.json";
 
+console.log("staticWeather>", staticWeather);
+console.log("weather>", weather);
+
 describe("Forecast", () => {
 
   describe("getWeather", () => {
@@ -60,10 +63,12 @@ describe("Forecast", () => {
         weather.find.restore();
       });
 
-      it("Tests getWeather callback throws an error", (done) => {
-        weather.find.yields("fuck");
+      it("should callback with the result", (done) => {
+        weather.find.yields(null, staticWeather);
         forecast.getWeather("London, England", "C", (err, result) => {
-          expect(err).to.equal(expectedErrorMessage);
+          console.log("result>", result);
+          console.log("err>", err);
+          expect(result).to.equal(staticWeather);
           done();
         });
       });
