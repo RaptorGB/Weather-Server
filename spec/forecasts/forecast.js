@@ -6,7 +6,7 @@ describe("Forecast", () => {
 
   describe("getWeather", () => {
     let forecast,
-      expectedErrorMessage;
+    expectedErrorMessage;
 
     beforeEach(() => {
       forecast = new Forecast();
@@ -26,10 +26,10 @@ describe("Forecast", () => {
       });
 
       it("Return early when params are null", (done) => {
-          forecast.getWeather(null, null, (err, result) => {
-            expect(err).to.equal(expectedErrorMessage);
-            done();
-          });
+        forecast.getWeather(null, null, (err, result) => {
+          expect(err).to.equal(expectedErrorMessage);
+          done();
+        });
       });
 
       it("Return early when params are 0", (done) => {
@@ -45,33 +45,31 @@ describe("Forecast", () => {
           done();
         });
       });
-
     });
 
-    describe("Weather.find callback result", () => {
-      let stub;
+    describe("When weather.find is called", () => {
 
       beforeEach(() => {
+        forecast = new Forecast();
+        sinon.stub(weather, "find");
         expectedErrorMessage = "CallbackError";
-        stub = sinon.stub(weather, "find");
-        console.log(stub);
       });
 
       afterEach(() => {
-      stub.restore();
+        forecast = null;
+        weather.find.restore();
       });
 
-      it("Tests getWeather returns json object", (done) => {
-        stub.yields(null, staticWeather);
+      it("Tests getWeather callback throws an error", (done) => {
+        weather.find.yields("fuck");
         forecast.getWeather("London, England", "C", (err, result) => {
-          expect(result[0].name).to.equal(staticWeather[0].name);
-          expect(result[0].degreetype).to.equal(staticWeather[0].degreetype);
+          expect(err).to.equal(expectedErrorMessage);
           done();
         });
       });
 
-      it("Tests getWeather callback throws an error", (done) => {
-        stub.yields("fuck");
+      it("Should callback with error", (done) => {
+        weather.find.yields(expectedErrorMessage);
         forecast.getWeather("London, England", "C", (err, result) => {
           expect(err).to.equal(expectedErrorMessage);
           done();
